@@ -4,7 +4,12 @@ const config = {
 		"./src/**/*.{html,js,svelte,ts}",
 	],
 	theme: {
-		extend: {},
+		extend: {
+			spacing: {
+				'112': '28rem',
+				'120': '30rem'
+			}
+		},
 	},
 	plugins: [],
 };
