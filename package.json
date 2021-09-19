@@ -26,5 +26,8 @@
 		"cssnano": "^5.0.8",
 		"tailwindcss": "^2.2.15"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"path": "^0.12.7"
+	}
 }
