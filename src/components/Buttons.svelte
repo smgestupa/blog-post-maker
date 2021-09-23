@@ -29,17 +29,19 @@
     }
 </style>
 
-<div class="pt-14 flex grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
-    <!-- BUTTON FOR CREATING POSTS -->
-    <button class="post-button" href="#" id="post-btn">
-        Create a post
-    </button>
-    <!-- /BUTTON FOR CREATING POSTS -->
-    <!-- BUTTON FOR SENDING TO SUPABASE -->
-    <a class="send-button" href="#">
-        Send the post
-    <!-- /BUTTON FOR SENDING TO SUPABASE -->
-    </a>
+<div class="flex justify-center">
+    <div class="pt-14 grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
+        <!-- BUTTON FOR CREATING POSTS -->
+        <button class="post-button" href="#" id="post-btn">
+            Create a post
+        </button>
+        <!-- /BUTTON FOR CREATING POSTS -->
+        <!-- BUTTON FOR SENDING TO SUPABASE -->
+        <a class="send-button" href="#">
+            Send the post
+            <!-- /BUTTON FOR SENDING TO SUPABASE -->
+        </a>
+    </div>
 </div>
 
 <!-- WRITE AREA MODAL -->
