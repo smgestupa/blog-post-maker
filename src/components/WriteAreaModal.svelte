@@ -1,10 +1,14 @@
 <script type="ts">
+    import { fade } from 'svelte/transition';
+    import { showModal } from '$stores/stores.ts';
     import marked from 'marked';
-    let textArea = ``;
+    let textArea: string = ``;
 
     marked.setOptions({
         breaks: true
     });
+
+    const modalClose = () => $showModal = !$showModal;
 
     $: markdown = marked( textArea );
 </script>
@@ -59,32 +63,34 @@
     }
 </style>
 
-<div class="bg-black bg-opacity-50 w-full h-full top-0 left-0 absolute z-10" id="overlay">
-    <div class="modal">
-        <!-- MODAL BUTTONS -->
-        <div class="modal-buttons">
-            <button class="close-button" id="close-modal">Close Editor</button>
-        </div>
-        <!-- /MODAL BUTTONS -->
-        <!-- MODAL HEADER -->
-        <div class="modal-header">
-            <p class="post-title">Post Title</p>
-            <input class="title-input" type="text" placeholder="Your post title">
-        </div>
-        <!-- /MODAL HEADER -->
-        <div class="markdown">
-            <!-- MARKDOWN WRITE AREA -->
-            <div class="markdown-write">
-                <textarea type='text' bind:value={ textArea } placeholder='The content of your post'></textarea>
+{ #if $showModal }
+    <div class="bg-black bg-opacity-50 w-full h-full top-0 left-0 absolute z-10" id="overlay" transition:fade={ { duration: 300 } }>
+        <div class="modal">
+            <!-- MODAL BUTTONS -->
+            <div class="modal-buttons">
+                <button class="close-button" id="close-modal" on:click|preventDefault={ modalClose }>Close Editor</button>
             </div>
-            <!-- /MARKDOWN WRITE AREA -->
-            <!-- MARKDOWN PREVIEW AREA -->
-            <div class="markdown-preview">
-                <div class="prose prose-lg max-w-none">
-                    { @html markdown }
+            <!-- /MODAL BUTTONS -->
+            <!-- MODAL HEADER -->
+            <div class="modal-header">
+                <p class="post-title">Post Title</p>
+                <input class="title-input" type="text" placeholder="Your post title">
+            </div>
+            <!-- /MODAL HEADER -->
+            <div class="markdown">
+                <!-- MARKDOWN WRITE AREA -->
+                <div class="markdown-write">
+                    <textarea type='text' bind:value={ textArea } placeholder='The content of your post'></textarea>
                 </div>
+                <!-- /MARKDOWN WRITE AREA -->
+                <!-- MARKDOWN PREVIEW AREA -->
+                <div class="markdown-preview">
+                    <div class="prose prose-lg max-w-none">
+                        { @html markdown }
+                    </div>
+                </div>
+                <!-- /MARKDOWN PREVIEW AREA -->
             </div>
-            <!-- /MARKDOWN PREVIEW AREA -->
         </div>
     </div>
-</div>
+{ /if }

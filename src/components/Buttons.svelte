@@ -1,20 +1,10 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { showModal } from '$stores/stores.ts';
     import WriteAreaModal from '$components/WriteAreaModal.svelte';
 
-    onMount( () => {
-        const overlay = document.querySelector( '#overlay' );
-        const post_btn = document.querySelector( '#post-btn' );
-        const close_btn = document.querySelector( '#close-modal' );
-
-        post_btn.addEventListener( 'click', () => {
-            overlay.classList.toggle( 'hidden' );
-        } );
-
-        close_btn.addEventListener( 'click', () => {
-            overlay.classList.toggle( 'hidden' );
-        } );
-    } );
+    const openModal = () => {
+        $showModal = !$showModal;
+    }
 </script>
 
 <style>
@@ -32,7 +22,7 @@
 <div class="flex justify-center">
     <div class="pt-14 grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
         <!-- BUTTON FOR CREATING POSTS -->
-        <button class="post-button" href="#" id="post-btn">
+        <button class="post-button" href="#" id="post-btn" on:click|preventDefault={ openModal }>
             Create a post
         </button>
         <!-- /BUTTON FOR CREATING POSTS -->
@@ -45,5 +35,5 @@
 </div>
 
 <!-- WRITE AREA MODAL -->
-<WriteAreaModal />
+<WriteAreaModal modalOpen={ showModal } />
 <!-- /WRITE AREA MODAL -->
