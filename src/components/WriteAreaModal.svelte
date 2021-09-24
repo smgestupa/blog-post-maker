@@ -1,6 +1,6 @@
-<script lang="ts">
+<script type="ts">
     import marked from 'marked';
-    let textArea = `Please write anything you want here!`;
+    let textArea = ``;
 
     marked.setOptions({
         breaks: true
@@ -15,7 +15,7 @@
     }
 
     .inner-modal {
-        @apply bg-gray-300 w-7/12 p-2 rounded shadow-xl my-10 mx-auto;
+        @apply bg-gray-300 w-9/12 p-2 rounded shadow-xl my-10 mx-auto;
     }
 
     .markdown-write {
@@ -23,19 +23,19 @@
     }
 
     .markdown-write textarea {
-        @apply w-full h-full pt-1 px-2 border-black bg-gray-700 text-gray-200 resize-none;
+        @apply text-xl w-full h-full py-2 px-2 border-black bg-gray-700 text-gray-200 outline-none resize-none;
         height: 85vh;
         border-width: 1px;
     }
 
     .markdown-preview {
-        @apply w-3/5 border-solid border-black bg-white overflow-auto break-words;
+        @apply w-3/5 border-solid border-black bg-white overflow-auto break-all;
         height: 85vh;
         border-width: 1px;
     }
 
     .markdown-preview div {
-        @apply w-full pt-1 px-2;
+        @apply w-full py-2 px-2 pl-5;
     }
 </style>
 
@@ -43,11 +43,13 @@
     <div class="inner-modal">
         <div class="flex items-start content-evenly w-full">
             <div class="markdown-write">
-                <textarea bind:value={ textArea }></textarea>
+                <textarea type='text' bind:value={ textArea } placeholder='Please write the content of your post here...'></textarea>
             </div>
 
             <div class="markdown-preview">
-                <div>{ @html markdown }</div>
+                <div class="prose prose-lg max-w-none">
+                    { @html markdown }
+                </div>
             </div>
         </div>
     </div>
