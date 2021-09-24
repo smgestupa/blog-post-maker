@@ -5,15 +5,15 @@
     onMount( () => {
         const overlay = document.querySelector( '#overlay' );
         const post_btn = document.querySelector( '#post-btn' );
-        const close_btn = document.querySelector( '#close-modal' );
+        // const close_btn = document.querySelector( '#close-modal' );
 
         post_btn.addEventListener( 'click', () => {
             overlay.classList.toggle( 'hidden' );
         } );
 
-        close_btn.addEventListener( 'click', () => {
-            overlay.classList.toggle( 'hidden' );
-        } );
+        // close_btn.addEventListener( 'click', () => {
+        //     overlay.classList.toggle( 'hidden' );
+        // } );
     } );
 </script>
 
