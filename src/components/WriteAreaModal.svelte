@@ -19,11 +19,22 @@
     }
 
     .modal-buttons {
-        @apply float-right pt-2 pr-5;
+        @apply float-right pt-1.5 pr-1.5;
     }
 
     .close-button {
-        @apply text-white font-semibold bg-red-700 px-4 py-2 rounded-lg hover:bg-red-600 duration-200;
+        @apply text-white hidden font-semibold bg-red-700 px-4 py-2 rounded-lg duration-200
+        md:inline
+        hover:bg-red-600;
+    }
+
+    .close-button-icon {
+        @apply text-3xl text-black font-semibold p-3 rounded-lg duration-200 -mt-5 -mr-5
+        md:hidden
+    }
+
+    .close-button-icon svg {
+        @apply text-red-700;
     }
 
     .modal-header {
@@ -35,7 +46,8 @@
     }
 
     .title-input {
-        @apply w-48 md:w-96 py-1.5 pl-2 pr-1 outline-none rounded-lg border border-black;
+        @apply w-11/12 py-1.5 pl-2 pr-1 outline-none rounded-lg border border-black
+        md:w-96;
     }
 
     .markdown {
@@ -69,6 +81,9 @@
             <!-- MODAL BUTTONS -->
             <div class="modal-buttons">
                 <button class="close-button" id="close-modal" on:click|preventDefault={ modalClose }>Close Editor</button>
+                <button class="close-button-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4l-66.1.3c-4.4 0-8-3.5-8-8c0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 0 1-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4l66-.3c4.4 0 8 3.5 8 8c0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2c0 4.4-3.6 8-8 8z" fill="currentColor"/></svg>
+                </button>
             </div>
             <!-- /MODAL BUTTONS -->
             <!-- MODAL HEADER -->
