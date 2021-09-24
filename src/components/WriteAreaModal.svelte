@@ -1,6 +1,6 @@
 <script type="ts">
     import { fade } from 'svelte/transition';
-    import { showModal } from '$stores/stores.ts';
+    import { showModal } from '$stores/stores.js';
     import marked from 'marked';
     let textArea: string = ``;
 

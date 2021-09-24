@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { showModal } from '$stores/stores.ts';
+    import { showModal } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteAreaModal.svelte';
 
     const openModal = () => {
