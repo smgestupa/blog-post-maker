@@ -2,6 +2,7 @@
     import { fade } from 'svelte/transition';
     import { showModal } from '$stores/stores.js';
     import marked from 'marked';
+
     let textArea: string = `# H1 heading
 
 ## H2 heading
@@ -24,7 +25,8 @@
 - Second item
 - Third item
 
-[Svelte](https://svelte.dev/)`;
+[Svelte](https://svelte.dev/)
+`;
 
     marked.setOptions({
         breaks: true
@@ -81,23 +83,22 @@
         @apply w-3/5 flex items-center rounded-l-lg overflow-hidden;
     }
 
-    .markdown-write textarea {
-        @apply text-xl w-full pt-3 pb-2 pl-3 pr-2 text-gray-200 outline-none resize-none overflow-auto;
+    .markdown-write-textarea {
+        @apply text-xl w-full pt-3 pb-2 pl-3 pr-2 text-white outline-none resize-none overflow-auto;
         height: 70vh;
         background-color: #36393f;
-        color: white;
     }
 
     .markdown-preview {
         @apply w-3/5 rounded-r-lg overflow-hidden break-all;
     }
 
-    .markdown-preview div {
+    .markdown-preview-div {
         @apply w-full pt-3 pb-2 pl-3 pr-2 overflow-auto bg-white max-w-none;
         height: 70vh;
-        background-color: white;
         color: #36393f;
     }
+
 </style>
 
 { #if !$showModal }
@@ -120,12 +121,12 @@
             <div class="markdown">
                 <!-- MARKDOWN WRITE AREA -->
                 <div class="markdown-write">
-                    <textarea type='text' bind:value={ textArea } placeholder='The content of your post'></textarea>
+                    <textarea class="markdown-write-textarea" type='text' bind:value={ textArea } placeholder='The content of your post'></textarea>
                 </div>
                 <!-- /MARKDOWN WRITE AREA -->
                 <!-- MARKDOWN PREVIEW AREA -->
                 <div class="markdown-preview">
-                    <div class="prose prose-sm md:prose-lg">
+                    <div class="markdown-preview-div prose prose-sm md:prose-lg">
                         { @html markdown }
                     </div>
                 </div>
