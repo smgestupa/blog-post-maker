@@ -101,8 +101,8 @@
 
 </style>
 
-{ #if !$showModal }
-    <div class="bg-black bg-opacity-50 w-full h-full top-0 left-0 fixed z-10" id="overlay" transition:fade={ { duration: 300 } }>
+{ #if $showModal }
+    <div class="bg-black bg-opacity-50 w-full h-full top-0 left-0 fixed z-10" transition:fade={ { duration: 300 } }>
         <div class="modal">
             <!-- MODAL BUTTONS -->
             <div class="modal-buttons">

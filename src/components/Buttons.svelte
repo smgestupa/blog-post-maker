@@ -1,6 +1,7 @@
 <script lang="ts">
     import { showModal } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteAreaModal.svelte';
+    import NotificationsModal from '$components/NotificationsModal.svelte';
 
     const openModal = () => {
         $showModal = !$showModal;
@@ -34,6 +35,11 @@
     </div>
 </div>
 
+
 <!-- WRITE AREA MODAL -->
-<WriteAreaModal modalOpen={ showModal } />
+<WriteAreaModal />
 <!-- /WRITE AREA MODAL -->
+
+<!-- NOTIFICATIONS MODAL -->
+<NotificationsModal notifType='warning' notifMessage='Lorem ipsum dolor sit amet, consectetur adipisicing'/>
+<!-- /NOTIFICATIONS MODAL -->

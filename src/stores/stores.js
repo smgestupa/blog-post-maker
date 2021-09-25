@@ -1,3 +1,6 @@
 import { writable } from 'svelte/store';
 
-export const showModal = writable( false );
+const showModal = writable( false );
+const showNotifModal = writable( false );
+
+export { showModal, showNotifModal };
