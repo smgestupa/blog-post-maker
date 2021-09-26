@@ -15,8 +15,9 @@
 
 <style>
     .modal {
-        @apply bg-gray-300 w-9/12 p-2 rounded-lg shadow-xl mx-auto;
+        @apply w-9/12 p-2 rounded-lg shadow-xl mx-auto;
         margin-top: 4vh;
+        background-color: #282c34;
     }
 
     .modal-buttons {
@@ -43,7 +44,7 @@
     }
 
     .post-title {
-        @apply text-xl pb-2;
+        @apply text-white text-xl pb-2;
     }
 
     .title-input {

@@ -1,6 +1,6 @@
 <script lang="ts">
     import { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode } from '$stores/stores.js';
-    import WriteAreaModal from '$components/WriteAreaModal.svelte';
+    import WriteAreaModal from '$components/WriteEditAreaModal.svelte';
     import NotificationsModal from '$components/NotificationsModal.svelte';
 
     const openModal = () => $showModal = !$showModal;
