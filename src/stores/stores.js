@@ -28,5 +28,6 @@ const postContent = writable( `# H1 heading
 [Svelte](https://svelte.dev/)` );
 const supabaseUrl = writable( `` );
 const supabaseKey = writable( `` );
+const editMode = writable( false )
 
-export { showModal, showNotifModal, postTitle, postContent, supabaseUrl, supabaseKey };
+export { showModal, showNotifModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode };
