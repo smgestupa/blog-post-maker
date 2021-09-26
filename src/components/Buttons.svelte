@@ -1,10 +1,24 @@
 <script lang="ts">
-    import { showModal } from '$stores/stores.js';
+    import { showModal, postTitle, postContent, supabaseUrl, supabaseKey } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteAreaModal.svelte';
     import NotificationsModal from '$components/NotificationsModal.svelte';
 
-    const openModal = () => {
-        $showModal = !$showModal;
+    const openModal = () => $showModal = !$showModal;
+    const sendToSupabase = async () => {
+        const req = await fetch( $supabaseUrl, {
+            method: 'POST',
+            headers: {
+                'apikey': $supabaseKey,
+                'Authorization': 'Bearer ' + $supabaseKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
+        } );
+
+        const res = req.status;
+        console.log( res );
+        console.log( $supabaseUrl );
+        console.log( $supabaseKey );
     }
 </script>
 
@@ -28,7 +42,7 @@
         </button>
         <!-- /BUTTON FOR CREATING POSTS -->
         <!-- BUTTON FOR SENDING TO SUPABASE -->
-        <a class="send-button" href="#">
+        <a class="send-button" href="#" on:click|preventDefault={ sendToSupabase }>
             Send the post
             <!-- /BUTTON FOR SENDING TO SUPABASE -->
         </a>

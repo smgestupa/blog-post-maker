@@ -1,9 +1,7 @@
-<script lang="ts" context="module">
-    export let url: string, key: string;
-</script>
-
 <script lang="ts">
+    import { supabaseUrl, supabaseKey } from '$stores/stores.js';
     let showKey = false;
+
     const showAPIKey = () => showKey = !showKey;
 </script>
 
@@ -31,7 +29,7 @@
             <p class="input-label">
                 Add the Supabase URL here:
             </p>
-            <input bind:value={ url } type="text" id="i-url" name="i-url" placeholder="https://xxxxxxxxxxxxxxxxxxx.supabase.co" class="input">
+            <input bind:value={ $supabaseUrl } type="text" id="i-url" name="i-url" placeholder="https://xxxxxxxxxxxxxxxxxxx.supabase.co" class="input">
         </div>
         <!-- /URL TABLE INPUT -->
         <!-- API KEY INPUT -->
@@ -39,7 +37,7 @@
             <p class="input-label">
                 Add your public API key here:
             </p>
-            <input bind={ key } type={ showKey ? "text" : "password" } id="i-api" name="i-api" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="input">
+            <input bind:value={ $supabaseKey } type='text' id="i-api" name="i-api" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="input">
             <!-- INPUT BUTTON-->
             <button class="eye-button" on:click|preventDefault={ showAPIKey }>
                 { #if !showKey }
