@@ -2,7 +2,7 @@ import { writable } from 'svelte/store';
 
 const showModal = writable( false );
 const showNotifModal = writable( false );
-const postTitle = writable( `Example title post` );
+const postTitle = writable( `` );
 const postContent = writable( `# H1 heading
 
 ## H2 heading

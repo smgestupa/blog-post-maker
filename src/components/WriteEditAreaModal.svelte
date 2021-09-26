@@ -1,6 +1,6 @@
 <script type="ts">
     import { fade } from 'svelte/transition';
-    import { showModal, postTitle, postContent } from '$stores/stores.js';
+    import { showModal, postTitle, postContent, editMode } from '$stores/stores.js';
     import marked from 'marked';
     let markdown;
 
@@ -9,6 +9,7 @@
     });
 
     const modalClose = () => $showModal = !$showModal;
+    const enableEditMode = () => $editMode = !$editMode;
 
     $: markdown = marked( $postContent );
 </script>
@@ -21,7 +22,13 @@
     }
 
     .modal-buttons {
-        @apply float-right pt-1.5 pr-1.5;
+        @apply flex items-center float-right pt-1.5 pr-1.5
+        md:space-x-6;
+    }
+
+    .edit-button {
+        @apply flex items-center mt-5 -mt-5 -mr-1
+        md:mt-0
     }
 
     .close-button {
@@ -32,7 +39,7 @@
 
     .close-button-icon {
         @apply text-3xl text-black font-semibold p-3 rounded-lg duration-200 -mt-5 -mr-5
-        md:hidden
+        md:hidden;
     }
 
     .close-button-icon svg {
@@ -83,6 +90,14 @@
         <div class="modal">
             <!-- MODAL BUTTONS -->
             <div class="modal-buttons">
+                <div class="edit-button">
+                    { #if $editMode }
+                        <input type="checkbox" on:click={ enableEditMode } checked>
+                    { :else }
+                        <input type="checkbox" on:click={ enableEditMode }>
+                    { /if }
+                    <h3 class="text-white text-lg pl-2">Edit mode?</h3>
+                </div>
                 <button class="close-button" id="close-modal" on:click|preventDefault={ modalClose }>Close editor</button>
                 <button class="close-button-icon" on:click|preventDefault={ modalClose }>
                     <svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 1024 1024"><path d="M512 64C264.6 64 64 264.6 64 512s200.6 448 448 448s448-200.6 448-448S759.4 64 512 64zm165.4 618.2l-66-.3L512 563.4l-99.3 118.4l-66.1.3c-4.4 0-8-3.5-8-8c0-1.9.7-3.7 1.9-5.2l130.1-155L340.5 359a8.32 8.32 0 0 1-1.9-5.2c0-4.4 3.6-8 8-8l66.1.3L512 464.6l99.3-118.4l66-.3c4.4 0 8 3.5 8 8c0 1.9-.7 3.7-1.9 5.2L553.5 514l130 155c1.2 1.5 1.9 3.3 1.9 5.2c0 4.4-3.6 8-8 8z" fill="currentColor"/></svg>
@@ -92,7 +107,7 @@
             <!-- MODAL HEADER -->
             <div class="modal-header">
                 <p class="post-title">Post Title</p>
-                <input class="title-input" type="text" placeholder="Your post title" bind:value={ $postTitle }>
+                <input class="title-input" type="text" placeholder="Your post's title" bind:value={ $postTitle }>
             </div>
             <!-- /MODAL HEADER -->
             <div class="markdown">
