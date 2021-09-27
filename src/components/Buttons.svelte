@@ -34,8 +34,7 @@
             },
             body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
         } );
-
-        loading = req.status == null;
+        loading = false;
 
         if ( req.status !== null ) {
             $showNotifModal = true;

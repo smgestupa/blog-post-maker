@@ -5,7 +5,10 @@
 
 <style>
     .modal {
-        @apply h-full top-0 left-1/4 right-1/4 absolute;
+        @apply h-full top-0 absolute
+        md:left-1/4 md:right-1/4 !important;
+        left: 5vh;
+        right: 5vh;
     }
 
     .modal-warning {
