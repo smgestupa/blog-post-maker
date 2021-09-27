@@ -1,11 +1,16 @@
 <script lang="ts">
-    import { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode } from '$stores/stores.js';
+    import { showModal, showNotifModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteEditAreaModal.svelte';
     import NotificationsModal from '$components/NotificationsModal.svelte';
+    let loading: boolean = false;
 
     const openModal = () => $showModal = !$showModal;
-
     const sendToSupabase = async () => {
+        if ( $supabaseUrl.trim() === '' && $supabaseKey.trim() === '' ) {
+            loading = true;
+            $showNotifModal = true;
+        }
+
         const req =  await fetch( $supabaseUrl, {
             method: 'POST',
             headers: {
@@ -15,6 +20,11 @@
             },
             body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
         } )
+
+        setTimeout( () => {
+            loading = false;
+            $showNotifModal = false;
+        }, 2000 );
     }
 </script>
 
@@ -32,16 +42,20 @@
 
 <div class="flex justify-center">
     <div class="pt-14 grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
-        <!-- BUTTON FOR CREATING POSTS -->
-        <button class="post-button" href="#" id="post-btn" on:click|preventDefault={ openModal }>
-            { $editMode ? 'Edit a post' : 'Create a post' }
-        </button>
-        <!-- /BUTTON FOR CREATING POSTS -->
-        <!-- BUTTON FOR SENDING TO SUPABASE -->
-        <a class="send-button" href="#" on:click|preventDefault={ sendToSupabase }>
-            Send to Supabase
-        </a>
-        <!-- /BUTTON FOR SENDING TO SUPABASE -->
+        { #if !loading }
+            <!-- BUTTON FOR CREATING POSTS -->
+            <button class="post-button" href="#" id="post-btn" on:click|preventDefault={ openModal }>
+                { $editMode ? 'Edit a post' : 'Create a post' }
+            </button>
+            <!-- /BUTTON FOR CREATING POSTS -->
+            <!-- BUTTON FOR SENDING TO SUPABASE -->
+            <a class="send-button" href="#" on:click|preventDefault={ sendToSupabase }>
+                Send to Supabase
+            </a>
+            <!-- /BUTTON FOR SENDING TO SUPABASE -->
+        { :else }
+            Loading...
+        { /if }
     </div>
 </div>
 
@@ -51,5 +65,5 @@
 <!-- /WRITE AREA MODAL -->
 
 <!-- NOTIFICATIONS MODAL -->
-<NotificationsModal notifType='warning' notifMessage='Lorem ipsum dolor sit amet, consectetur adipisicing'/>
+<NotificationsModal/>
 <!-- /NOTIFICATIONS MODAL -->
