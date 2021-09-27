@@ -44,12 +44,12 @@
     <div class="pt-14 grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
         { #if !loading }
             <!-- BUTTON FOR CREATING POSTS -->
-            <button class="post-button" id="post-btn" on:click|preventDefault={ openModal }>
+            <button class="post-button" on:click|preventDefault={ openModal }>
                 { $editMode ? 'Edit a post' : 'Create a post' }
             </button>
             <!-- /BUTTON FOR CREATING POSTS -->
             <!-- BUTTON FOR SENDING TO SUPABASE -->
-            <a class="send-button"  on:click|preventDefault={ sendToSupabase }>
+            <a class="send-button" on:click|preventDefault={ sendToSupabase }>
                 Send to Supabase
             </a>
             <!-- /BUTTON FOR SENDING TO SUPABASE -->
