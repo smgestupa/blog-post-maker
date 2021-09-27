@@ -7,8 +7,8 @@
     .modal {
         @apply h-full top-0 absolute
         md:left-1/4 md:right-1/4 !important;
-        left: 5vh;
-        right: 5vh;
+        left: 5vw;
+        right: 5vw;
     }
 
     .modal-warning {
@@ -56,11 +56,11 @@
             <div class="modal-messages-{ $notifType }">
                 <!-- NOTIFICATION MODAL TITLE -->
                 <div class="text-lg font-bold">
-                    { ( $notifType === 'warning' ) ? 'Something went wrong!' : 'Success!' }
+                    <h1>{ ( $notifType === 'warning' ) ? 'Something went wrong!' : 'Success!' }</h1>
                 </div>
                 <!-- /NOTIFICATION MODAL TITLE -->
-                <div class="text-md">
-                    { $notifMessage }
+                <div class="text-md pr-2.5">
+                    <h3>{ $notifMessage }</h3>
                 </div>
             </div>
             <!-- /NOTIFICATION MODAL MESSAGE -->

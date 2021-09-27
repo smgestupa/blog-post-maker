@@ -11,7 +11,7 @@
             $notifType = 'warning';
             $notifMessage = 'Both input fields must be filled in before sending';
 
-            setTimeout( () => $showNotifModal = false, 4000 );
+            setTimeout( () => $showNotifModal = false, 1500 );
             return;
         }
 
@@ -20,20 +20,31 @@
             $notifType = 'warning';
             $notifMessage = 'Your post must have a title or a content before sending';
 
-            setTimeout( () => $showNotifModal = false, 4000 );
+            setTimeout( () => $showNotifModal = false, 1500 );
             return;
         }
 
         loading = true;
-        const req =  await fetch( $supabaseUrl, {
-            method: 'POST',
-            headers: {
-                'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
-                'Authorization': 'Bearer ' + $supabaseKey,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
-        } );
+        let req;
+        try {
+            req =  await fetch( $supabaseUrl, {
+                method: 'POST',
+                headers: {
+                    'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
+                    'Authorization': 'Bearer ' + $supabaseKey,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
+            } );
+        } catch {
+            $showNotifModal = true;
+            $notifType = 'warning'
+            $notifMessage = `Something happened with sending the request, check the console`
+            loading = false;
+
+            setTimeout( () => $showNotifModal = false, 1500 );
+            return;
+        }
         loading = false;
 
         if ( req.status !== null ) {
@@ -47,7 +58,7 @@
                 $notifMessage = `Post successfully sent to your Supabase database`
             }
 
-            setTimeout( () => $showNotifModal = false, 5000 );
+            setTimeout( () => $showNotifModal = false, 1500 );
         }
     }
 </script>
