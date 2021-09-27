@@ -1,16 +1,30 @@
 <script lang="ts">
-    import { showModal, showNotifModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode } from '$stores/stores.js';
+    import { showModal, showNotifModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode, notifType, notifMessage } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteEditAreaModal.svelte';
     import NotificationsModal from '$components/NotificationsModal.svelte';
     let loading: boolean = false;
 
     const openModal = () => $showModal = !$showModal;
     const sendToSupabase = async () => {
-        if ( $supabaseUrl.trim() === '' && $supabaseKey.trim() === '' ) {
-            loading = true;
+        if ( $supabaseUrl.trim() === '' || $supabaseKey.trim() === '' )  {
             $showNotifModal = true;
+            $notifType = 'warning';
+            $notifMessage = 'Both input fields must be filled in before sending';
+
+            setTimeout( () => $showNotifModal = false, 4000 );
+            return;
         }
 
+        if ( $postTitle.trim() === '' || $postContent.trim() === '' )  {
+            $showNotifModal = true;
+            $notifType = 'warning';
+            $notifMessage = 'Your post must have a title or a content before sending';
+
+            setTimeout( () => $showNotifModal = false, 4000 );
+            return;
+        }
+
+        loading = true;
         const req =  await fetch( $supabaseUrl, {
             method: 'POST',
             headers: {
@@ -19,12 +33,9 @@
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
-        } )
+        } );
 
-        setTimeout( () => {
-            loading = false;
-            $showNotifModal = false;
-        }, 2000 );
+        console.log( req.status !== null );
     }
 </script>
 
@@ -49,9 +60,9 @@
             </button>
             <!-- /BUTTON FOR CREATING POSTS -->
             <!-- BUTTON FOR SENDING TO SUPABASE -->
-            <a class="send-button" on:click|preventDefault={ sendToSupabase }>
+            <button class="send-button" on:click|preventDefault={ sendToSupabase }>
                 Send to Supabase
-            </a>
+            </button>
             <!-- /BUTTON FOR SENDING TO SUPABASE -->
         { :else }
             Loading...

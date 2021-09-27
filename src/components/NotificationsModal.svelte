@@ -1,4 +1,5 @@
 <script lang="ts">
+    import { fly } from 'svelte/transition';
     import { showNotifModal, notifType, notifMessage } from "$stores/stores";
 </script>
 
@@ -38,7 +39,7 @@
 
 { #if $showNotifModal }
     <div class="modal">
-        <div class="modal-{ $notifType }">
+        <div class="modal-{ $notifType }" transition:fly={ { y: -50, duration: 300 } }>
             <!-- NOTIFICATION MODAL ICON -->
             <div class="text-5xl pl-2 pr-6">
                 { #if $notifType === 'warning' }
