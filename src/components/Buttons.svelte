@@ -35,7 +35,21 @@
             body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
         } );
 
-        console.log( req.status !== null );
+        loading = req.status == null;
+
+        if ( req.status !== null ) {
+            $showNotifModal = true;
+            $notifType = ( req.status != 201 ) ? 'warning' : 'success';
+            if ( req.status === 404 ) {
+                $notifMessage = `It seems like the URL you gave doesn't exist`
+            } else if ( req.status === 401 ) {
+                $notifMessage = `The specified database did not allow your public API to send`
+            } else {
+                $notifMessage = `Post successfully sent to your Supabase database`
+            }
+
+            setTimeout( () => $showNotifModal = false, 5000 );
+        }
     }
 </script>
 
