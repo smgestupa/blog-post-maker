@@ -30,6 +30,7 @@
                 body: JSON.stringify( { 'content': $postContent } )
             } );
         }
+
         loading = false;
     }
 </script>
