@@ -7,15 +7,29 @@
     const openModal = () => $showModal = !$showModal;
     const sendToSupabase = async () => {
         loading = true;
-        const req =  await fetch( $supabaseUrl, {
-            method: 'POST',
-            headers: {
-                'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
-                'Authorization': 'Bearer ' + $supabaseKey,
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
-        } );
+        if ( !$editMode ) {
+            await fetch( `${ $supabaseUrl }/rest/v1/posts`, {
+                method: 'POST',
+                headers: {
+                    'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
+                    'Authorization': 'Bearer ' + $supabaseKey,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation',
+                },
+                body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
+            } );
+        } else {
+            await fetch( `${ $supabaseUrl }/rest/v1/posts?title=eq.${ $postTitle }`, {
+                method: 'PATCH',
+                headers: {
+                    'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
+                    'Authorization': 'Bearer ' + $supabaseKey,
+                    'Content-Type': 'application/json',
+                    'Prefer': 'return=representation',
+                },
+                body: JSON.stringify( { 'content': $postContent } )
+            } );
+        }
         loading = false;
     }
 </script>
