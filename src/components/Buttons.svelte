@@ -1,65 +1,22 @@
 <script lang="ts">
-    import { showModal, showNotifModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode, notifType, notifMessage } from '$stores/stores.js';
+    import { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteEditAreaModal.svelte';
     import NotificationsModal from '$components/NotificationsModal.svelte';
     let loading: boolean = false;
 
     const openModal = () => $showModal = !$showModal;
     const sendToSupabase = async () => {
-        if ( $supabaseUrl.trim() === '' || $supabaseKey.trim() === '' )  {
-            $showNotifModal = true;
-            $notifType = 'warning';
-            $notifMessage = 'Both input fields must be filled in before sending';
-
-            setTimeout( () => $showNotifModal = false, 1500 );
-            return;
-        }
-
-        if ( $postTitle.trim() === '' || $postContent.trim() === '' )  {
-            $showNotifModal = true;
-            $notifType = 'warning';
-            $notifMessage = 'Your post must have a title or a content before sending';
-
-            setTimeout( () => $showNotifModal = false, 1500 );
-            return;
-        }
-
         loading = true;
-        let req;
-        try {
-            req =  await fetch( $supabaseUrl, {
-                method: 'POST',
-                headers: {
-                    'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
-                    'Authorization': 'Bearer ' + $supabaseKey,
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
-            } );
-        } catch {
-            $showNotifModal = true;
-            $notifType = 'warning'
-            $notifMessage = `Something happened with sending the request, check the console`
-            loading = false;
-
-            setTimeout( () => $showNotifModal = false, 1500 );
-            return;
-        }
+        const req =  await fetch( $supabaseUrl, {
+            method: 'POST',
+            headers: {
+                'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
+                'Authorization': 'Bearer ' + $supabaseKey,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
+        } );
         loading = false;
-
-        if ( req.status !== null ) {
-            $showNotifModal = true;
-            $notifType = ( req.status != 201 ) ? 'warning' : 'success';
-            if ( req.status === 404 ) {
-                $notifMessage = `It seems like the URL you gave doesn't exist`
-            } else if ( req.status === 401 ) {
-                $notifMessage = `The specified database did not allow your public API to send`
-            } else {
-                $notifMessage = `Post successfully sent to your Supabase database`
-            }
-
-            setTimeout( () => $showNotifModal = false, 1500 );
-        }
     }
 </script>
 
@@ -76,7 +33,7 @@
 </style>
 
 <div class="flex justify-center">
-    <div class="pt-14 grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
+    <div class="pt-16 grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
         { #if !loading }
             <!-- BUTTON FOR CREATING POSTS -->
             <button class="post-button" on:click|preventDefault={ openModal }>

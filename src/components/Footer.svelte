@@ -5,6 +5,6 @@
     }
 </style>
 
-<div class="flex justify-center pt-32">
+<div class="flex justify-center pt-28">
     <p>Made with <span class="text-red">❤</span> <span class="px-2">•</span> Check this page in <a class="link" href="https://gitlab.com/laazyCmd/blog-post-maker">GitLab</a></p>
 </div>
