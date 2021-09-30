@@ -1,38 +1,20 @@
-# create-svelte
+# Blog Post Maker
+Make a blog post with [`Svelte`](https://svelte.dev/), [`Mdsvex`](https://mdsvex.com/), and [`Supabase`](https://supabase.io/)!
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte);
+## [Live Demo](#)
 
-## Creating a project
+# Cloning the Repository
+** **Note!** Please use `supabase-js` instead of fetching through the URL, since the module provides more functionalities. I used fetching through Supabase URL to communicate with my database, just to get a hang (and learn) with HTTP requests.
 
-If you're seeing this, you've probably already done this step. Congrats!
+1. Create a local folder and do `cd [folder path]`
+2. Open your terminal and type `git clone git@gitlab.com:laazyCmd/blog-post-maker.git`
+3. Run `npm install` to install all dependencies
+4. Run `npm run build` to check any errors
+5. Run `npm run dev` and go to [`http://localhost:3000/`](http://localhost:3000/) in your browser to see the website
 
-```bash
-# create a new project in the current directory
-npm init svelte@next
-
-# create a new project in my-app
-npm init svelte@next my-app
-```
-
-> Note: the `@next` is temporary
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
-
-```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
-```
-
-## Building
-
-Before creating a production version of your app, install an [adapter](https://kit.svelte.dev/docs#adapters) for your target environment. Then:
-
-```bash
-npm run build
-```
-
-> You can preview the built app with `npm run preview`, regardless of whether you installed an adapter. This should _not_ be used to serve your app in production.
+# Screenshots
+![](screenshots/first-screenshot.png)
+![](screenshots/second-screenshot.png)
+![](screenshots/fifth-screenshot.png)
+![](screenshots/third-screenshot.png)
+![](screenshots/fourth-screenshot.png)
