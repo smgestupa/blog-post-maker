@@ -38,20 +38,17 @@
         }
         loading = false;
 
+        $showNotifModal = true;
         if ( statusCode == 404 ) {
-            $showNotifModal = true;
             $notifType = 'warning';
             $notifMessage = `The Supabase URL you have given doesn't exist or the post title is incorrect`
         } else if ( statusCode == 401 ) {
-            $showNotifModal = true;
             $notifType = 'warning';
             $notifMessage = `You don't have permission to communicate with the Supabase URL`
         } else if ( statusCode == 201 ) {
-            $showNotifModal = true;
             $notifType = 'success';
             $notifMessage = `Your post has been successfully created`
         } else if ( statusCode == 200 ) {
-            $showNotifModal = true;
             $notifType = 'success';
             $notifMessage = `Your post has been successfully edited`
         }
