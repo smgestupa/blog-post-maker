@@ -1,7 +1,7 @@
 # Blog Post Maker
 Make a blog post with [`Svelte`](https://svelte.dev/), [`Mdsvex`](https://mdsvex.com/), and [`Supabase`](https://supabase.io/)!
 
-## [Live Demo](#)
+## [Live Demo](https://blog-post-maker.netlify.app)
 
 # Cloning the Repository
 ** **Note!** Please use `supabase-js` instead of fetching through the URL, since the module provides more functionalities. I used fetching through Supabase URL to communicate with my database, just to get a hang (and learn) with HTTP requests.
