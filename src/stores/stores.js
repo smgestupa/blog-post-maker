@@ -28,5 +28,8 @@ const postContent = writable( `# H1 heading
 const supabaseUrl = writable( `` );
 const supabaseKey = writable( `` );
 const editMode = writable( false );
+const showNotifModal = writable( false );
+const notifType = writable( `warning` );
+const notifMessage = writable( `Lorem ipsum dolorem` );
 
-export { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode };
+export { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode, showNotifModal, notifType, notifMessage };

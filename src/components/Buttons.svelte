@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode } from '$stores/stores.js';
+    import { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode, showNotifModal } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteEditAreaModal.svelte';
     import NotificationsModal from '$components/NotificationsModal.svelte';
     let loading: boolean = false;
@@ -31,6 +31,7 @@
             } );
         }
 
+        $showNotifModal = true;
         loading = false;
     }
 </script>
@@ -72,5 +73,7 @@
 <!-- /WRITE AREA MODAL -->
 
 <!-- NOTIFICATIONS MODAL -->
-<NotificationsModal/>
+{ #if $showNotifModal }
+    <NotificationsModal/>
+{ /if }
 <!-- /NOTIFICATIONS MODAL -->
