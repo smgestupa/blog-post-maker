@@ -60,22 +60,22 @@
 </style>
 
 <div class="flex justify-center">
+    { #if !loading }
     <div class="pt-16 grid grid-cols-1 md:grid-cols-2 content-center items-center space-y-3 md:space-y-0 md:space-x-3">
-        { #if !loading }
-            <!-- BUTTON FOR CREATING POSTS -->
-            <button class="post-button" on:click|preventDefault={ openModal }>
-                { $editMode ? 'Edit a post' : 'Create a post' }
-            </button>
-            <!-- /BUTTON FOR CREATING POSTS -->
-            <!-- BUTTON FOR SENDING TO SUPABASE -->
-            <button class="send-button" on:click|preventDefault={ sendToSupabase }>
-                Send to Supabase
-            </button>
-            <!-- /BUTTON FOR SENDING TO SUPABASE -->
-        { :else }
-            Loading...
-        { /if }
+        <!-- BUTTON FOR CREATING POSTS -->
+        <button class="post-button" on:click|preventDefault={ openModal }>
+            { $editMode ? 'Edit a post' : 'Create a post' }
+        </button>
+        <!-- /BUTTON FOR CREATING POSTS -->
+        <!-- BUTTON FOR SENDING TO SUPABASE -->
+        <button class="send-button" on:click|preventDefault={ sendToSupabase }>
+            Send to Supabase
+        </button>
+        <!-- /BUTTON FOR SENDING TO SUPABASE -->
     </div>
+    { :else }
+        <img class="pt-16" src="loading.gif" width="50" alt="">
+    { /if }
 </div>
 
 
