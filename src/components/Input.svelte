@@ -37,7 +37,11 @@
             <p class="input-label">
                 Add your public API key here:
             </p>
-            <input bind:value={ $supabaseKey } type='text' id="i-api" name="i-api" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="input">
+            { #if !showKey }
+                <input bind:value={ $supabaseKey } type='password'  id="i-api" name="i-api" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="input">
+            { :else }
+                <input bind:value={ $supabaseKey } type='text'  id="i-api" name="i-api" placeholder="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" class="input">
+            { /if }
             <!-- INPUT BUTTON-->
             <button class="eye-button" on:click|preventDefault={ showAPIKey }>
                 { #if !showKey }
