@@ -39,7 +39,7 @@
         loading = false;
 
         $showNotifModal = true;
-        ( $notifType == 404 || $notifType == 401 ) ? $notifType = 'warning' : $notifType = 'success';
+        ( statusCode == 404 || statusCode == 401 ) ? $notifType = 'warning' : $notifType = 'success';
         if ( statusCode == 404 ) $notifMessage = `The Supabase URL you have given doesn't exist or the post title is incorrect`;
             else if ( statusCode == 401 ) $notifMessage = `You don't have permission to communicate with the Supabase URL`;
             else if ( statusCode == 201 ) $notifMessage = `Your post has been successfully created`;
