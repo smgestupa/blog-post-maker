@@ -1,6 +1,8 @@
 <script lang="ts">
-    import { fly } from 'svelte/transition';
-    import { notifType, notifMessage } from "$stores/stores";
+    import { fly, fade } from 'svelte/transition';
+    import { showNotifModal, notifType, notifMessage } from "$stores/stores";
+
+    const closeNotifModal = () => $showNotifModal = !$showNotifModal;
 </script>
 
 <style>
@@ -12,9 +14,8 @@
     }
 
     .modal-warning {
-        @apply flex bg-red-200 p-2 w-full rounded-md shadow-xl mx-auto
+        @apply flex bg-red-200 p-2 w-full rounded-md shadow-xl mx-auto translate-y-3
         md:w-6/12;
-        margin-top: 2.5vh;
         left: 5vw;
         right: 5vw;
     }
@@ -28,9 +29,8 @@
     }
 
     .modal-success {
-        @apply flex items-center bg-green-200 p-2 w-full rounded-md shadow-xl mx-auto
+        @apply flex bg-green-200 p-2 w-full rounded-md shadow-xl mx-auto translate-y-3
         md:w-6/12;
-        margin-top: 2.5vh;
     }
 
     .modal-success svg {
@@ -44,7 +44,14 @@
 
 
 <div class="modal">
-    <div class="{ $notifType === 'warning' ? 'modal-warning' : 'modal-success' }" transition:fly={ { y: -50, duration: 300 } }>
+    <div class="{ $notifType === 'warning' ? 'modal-warning' : 'modal-success' }" in:fly={ { y: -50, duration: 300 } } out:fade={ { duration: 300 } }>
+        <!-- CLOSE MODAL BUTTON -->
+        <div class="absolute right-0 pr-2 -translate-y-0.5">
+            <button class="text-lg" on:click|preventDefault={ closeNotifModal }>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" width="1em" height="1em" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><g fill="none"><path d="M15 15L9 9m6 0l-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/></g></svg>
+            </button>
+        </div>
+        <!-- /CLOSE MODAL BUTTON -->
         <!-- NOTIFICATION MODAL ICON -->
         <div class="text-5xl pl-2 pr-6">
             { #if $notifType === 'warning' }

@@ -1,14 +1,16 @@
 <script lang="ts">
-    import { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode, showNotifModal } from '$stores/stores.js';
+    import { showModal, postTitle, postContent, supabaseUrl, supabaseKey, editMode, showNotifModal, notifType, notifMessage } from '$stores/stores.js';
     import WriteAreaModal from '$components/WriteEditAreaModal.svelte';
     import NotificationsModal from '$components/NotificationsModal.svelte';
     let loading: boolean = false;
 
     const openModal = () => $showModal = !$showModal;
     const sendToSupabase = async () => {
+        let statusCode;
         loading = true;
+        $showNotifModal = false;
         if ( !$editMode ) {
-            await fetch( `${ $supabaseUrl }/rest/v1/posts`, {
+            const req = await fetch( `${ $supabaseUrl }/rest/v1/posts`, {
                 method: 'POST',
                 headers: {
                     'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
@@ -18,8 +20,10 @@
                 },
                 body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
             } );
+
+            statusCode = req.status;
         } else {
-            await fetch( `${ $supabaseUrl }/rest/v1/posts?title=eq.${ $postTitle }`, {
+            const req = await fetch( `${ $supabaseUrl }/rest/v1/posts?title=eq.${ $postTitle }`, {
                 method: 'PATCH',
                 headers: {
                     'apikey': $supabaseKey, // REMOVE THE 1, THIS IS JUST FOR DEBUGGING AND TESTING OF AWAIT BLOCKS
@@ -29,10 +33,28 @@
                 },
                 body: JSON.stringify( { 'content': $postContent } )
             } );
-        }
 
-        $showNotifModal = true;
+            statusCode = req.status;
+        }
         loading = false;
+
+        if ( statusCode == 404 ) {
+            $showNotifModal = true;
+            $notifType = 'warning';
+            $notifMessage = `The Supabase URL you have given doesn't exist or the post title is incorrect`
+        } else if ( statusCode == 401 ) {
+            $showNotifModal = true;
+            $notifType = 'warning';
+            $notifMessage = `You don't have permission to communicate with the Supabase URL`
+        } else if ( statusCode == 201 ) {
+            $showNotifModal = true;
+            $notifType = 'success';
+            $notifMessage = `Your post has been successfully created`
+        } else if ( statusCode == 200 ) {
+            $showNotifModal = true;
+            $notifType = 'success';
+            $notifMessage = `Your post has been successfully edited`
+        }
     }
 </script>
 
