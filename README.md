@@ -1,5 +1,5 @@
 # Blog Post Maker
-Make a blog post with [`Mdsvex`](https://mdsvex.com/), and [`Supabase`](https://supabase.io/)!
+Make a blog post with [`Marked`](https://marked.js.org/), and [`Supabase`](https://supabase.io/)!
 
 ## [Live Demo](https://blog-post-maker.netlify.app)
 

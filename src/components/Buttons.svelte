@@ -9,6 +9,7 @@
         let statusCode;
         loading = true;
         $showNotifModal = false;
+
         if ( !$editMode ) {
             const req = await fetch( `${ $supabaseUrl }/rest/v1/posts`, {
                 method: 'POST',
@@ -20,7 +21,6 @@
                 },
                 body: JSON.stringify( { 'title': $postTitle, 'content': $postContent } )
             } );
-
             statusCode = req.status;
         } else {
             const req = await fetch( `${ $supabaseUrl }/rest/v1/posts?title=eq.${ $postTitle }`, {
@@ -33,11 +33,10 @@
                 },
                 body: JSON.stringify( { 'content': $postContent } )
             } );
-
             statusCode = req.status;
         }
-        loading = false;
 
+        loading = false;
         $showNotifModal = true;
         ( statusCode == 404 || statusCode == 401 ) ? $notifType = 'warning' : $notifType = 'success';
         if ( statusCode == 404 ) $notifMessage = `The Supabase URL you have given doesn't exist or the post title is incorrect`;
